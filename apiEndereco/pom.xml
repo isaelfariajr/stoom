@@ -58,19 +58,31 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<!--<version>8.0.13</version>-->
+			<!--<version>8.0.13</version> -->
 		</dependency>
 		
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<!--  <version>29.0-jre</version>-->
+			<!--  <version>29.0-jre</version> -->
 		</dependency>
 		
 		<dependency>
     		<groupId>junit</groupId>
     		<artifactId>junit</artifactId>    		
     		<scope>test</scope>
+		</dependency>
+		
+		 
+		<dependency>
+    		<groupId>org.json</groupId>
+    		<artifactId>json</artifactId>
+    		<version>20190722</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>    
 		</dependency>
 		
 	</dependencies>

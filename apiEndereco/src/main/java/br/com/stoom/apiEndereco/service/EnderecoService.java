@@ -1,19 +1,68 @@
 package br.com.stoom.apiEndereco.service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Optional;
 
+import org.apache.tomcat.util.json.JSONParser;
+import org.apache.tomcat.util.json.ParseException;
+import org.json.JSONArray;
+import org.json.JSONObject;
+//import org.json.JSONArray;
+//import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import br.com.stoom.apiEndereco.data.model.Endereco;
 import br.com.stoom.apiEndereco.data.repository.EnderecoRepository;
 import br.com.stoom.apiEndereco.dto.EnderecoDTO;
 
 @Service
+@PropertySource(value = "classpath:application.yml") 
 public class EnderecoService {
 	
 	@Autowired
 	EnderecoRepository enderecoRepository;
+	
+	@Value("${url.maps}")
+    private String url;
+	
+	@Value("${key.maps}")
+    private String key;
+	
+	private Endereco getGeocodingApi(Endereco endereco) throws IOException  { 
+		
+		String address = endereco.getNumber().toString()+" "+
+						 endereco.getStreetName()+", "+
+						 endereco.getNeighbourhood()+", "+
+						 endereco.getState();
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		String googleUrl = url+address+"\"&key="+key;
+		
+		ResponseEntity<String> response = restTemplate.getForEntity(googleUrl, String.class);
+		ObjectMapper mapper = new ObjectMapper();
+		
+		JsonNode json = mapper.readTree(response.getBody());
+
+		/* Não foi possivel dar continuidade, pois não foi fornecido uma key valida */
+		
+		return endereco;
+	}
 	
 	private Endereco mapping(EnderecoDTO dto) {
 		
@@ -31,6 +80,11 @@ public class EnderecoService {
 		endereco.setLatitude(dto.getLatitude());
 		endereco.setLongitude(dto.getLongitude());
 		
+		try {
+			return getGeocodingApi(endereco);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return endereco;
 	}
 	

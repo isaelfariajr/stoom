@@ -1,33 +1,27 @@
 package br.com.stoom.apiEndereco.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.Lists;
+import static org.mockito.Mockito.doReturn;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.Before;
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.doReturn;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Lists;
 
 import br.com.stoom.apiEndereco.data.model.Endereco;
 import br.com.stoom.apiEndereco.dto.EnderecoDTO;
@@ -44,14 +38,22 @@ public class EnderecoControllerTests {
 	@Autowired
 	private MockMvc mockMvc;
 	
-	@MockBean
-	private ObjectMapper objectMapper;
+	@Autowired
+	EnderecoController endController;
 	
 	@MockBean
 	private EnderecoValidator enderecoValidator;
 	
 	@MockBean
 	private EnderecoService endService;
+	
+	public static String writeValueAsString(final Object obj) {
+	    try {
+	        return new ObjectMapper().writeValueAsString(obj);
+	    } catch (Exception e) {
+	        throw new RuntimeException(e);
+	    }
+	}
 	
 	private Endereco getEndereco() {
         
@@ -148,10 +150,11 @@ public class EnderecoControllerTests {
 		doReturn(listErrors).when(enderecoValidator).validatePatchEndereco(ID, dto);
 		doReturn(endereco).when(endService).update(ID, dto);
 		
-		mockMvc.perform(patch("/beer/{idBeer}", "1")
+		mockMvc.perform(MockMvcRequestBuilders 
+				.patch("/endereco/{id}", "1")
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.accept(MediaType.APPLICATION_JSON_VALUE)
-				.content(objectMapper.writeValueAsString(dto)))
+				.content(writeValueAsString(dto)))
 				.andExpect(status().isCreated());
 		
 	}
@@ -161,7 +164,7 @@ public class EnderecoControllerTests {
 		
 		Endereco endereco = getEndereco();
 		endereco.setId(ID);
-		endereco.setStreetName("Rua da Maria e João");
+		endereco.setStreetName(null);
 		EnderecoDTO dto = new EnderecoDTO();
 		dto = mappingDTO(endereco);
 
@@ -170,18 +173,13 @@ public class EnderecoControllerTests {
 		listErrors.add(erro);
 
 		doReturn(listErrors).when(enderecoValidator).validatePatchEndereco(ID, dto);
+		doReturn(endereco).when(endService).update(ID, dto);
 
-		MvcResult mvcResult = mockMvc.perform(patch("/endereco/{id}", "1")						
+		mockMvc.perform(patch("/endereco/{id}", "1")						
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.accept(MediaType.APPLICATION_JSON_VALUE)
-				.content(objectMapper.writeValueAsString(endereco)))
-				.andExpect(status().isPreconditionFailed())
-				.andReturn();
-
-		String actualResponseBody = mvcResult.getResponse().getContentAsString();
-		String expectedResponseBody =
-				objectMapper.writeValueAsString(listErrors);
-		assertThat(actualResponseBody).isEqualToIgnoringWhitespace(expectedResponseBody);
+				.content(writeValueAsString(dto)))
+				.andExpect(status().isPreconditionFailed());		
 	}
 	
 	
@@ -189,12 +187,41 @@ public class EnderecoControllerTests {
 	public void addValido() throws JsonProcessingException, Exception {
 	
 		Endereco endereco = getEndereco();
+		endereco.setId(ID);
+		EnderecoDTO dto = new EnderecoDTO();
+		dto = mappingDTO(endereco);
 		
-		mockMvc.perform(post("/endereco").accept("application/json")
-		        .contentType("application/json")
-				.content(objectMapper.writeValueAsString(endereco)))
-				.andExpect(status().isCreated());
+		List<ErrorMessage> listErrors = Lists.newArrayList();
+		doReturn(listErrors).when(enderecoValidator).validatePost(dto);
+		doReturn(ID).when(endService).add(Mockito.any());
+		
+		mockMvc.perform(post("/endereco")
+				.content(writeValueAsString(dto))
+				.contentType(MediaType.APPLICATION_JSON_VALUE))
+	            .andExpect(status().isCreated());
+				
 	}
 	
+	@Test
+	public void addInvalido() throws JsonProcessingException, Exception {
+	
+		Endereco endereco = getEndereco();
+		endereco.setId(ID);
+		EnderecoDTO dto = new EnderecoDTO();
+		dto = mappingDTO(endereco);
+		
+		List<ErrorMessage> listErrors = Lists.newArrayList();
+		ErrorMessage erro = new ErrorMessage("1", "erro");
+		listErrors.add(erro);		
+		
+		doReturn(listErrors).when(enderecoValidator).validatePost(dto);
+		doReturn(ID).when(endService).add(Mockito.any());
+		
+		mockMvc.perform(post("/endereco")
+				.content(writeValueAsString(dto))
+				.contentType(MediaType.APPLICATION_JSON_VALUE))
+	            .andExpect(status().isPreconditionFailed());
+				
+	}
 	
 }

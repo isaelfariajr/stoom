@@ -10,5 +10,10 @@ spring:
     url: jdbc:mysql://localhost:3306/andress?useTimezone=true&serverTimezone=America/Sao_Paulo
   jpa:
     hibernate:
-      ddl-auto: create      
+      ddl-auto: create    
+      
+url:
+   maps : https://maps.googleapis.com/maps/api/geocode/json?address=      
+key: 
+   maps :   
 
