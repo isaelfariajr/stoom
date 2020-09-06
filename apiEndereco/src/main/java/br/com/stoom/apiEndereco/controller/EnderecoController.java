@@ -67,7 +67,7 @@ public class EnderecoController {
 
 		Optional<Endereco> endereco = endService.find(id);
 		
-		if (endereco == null){
+		if (!endereco.isPresent()){
 			response = ResponseEntity.status(HttpStatus.NO_CONTENT).build(); 
 		}else {
 			response = ResponseEntity.ok().body(endereco);
@@ -79,9 +79,17 @@ public class EnderecoController {
 	@DeleteMapping("/{id}")
 	private ResponseEntity<Object> deleteEndereco(@PathVariable("id") Long id){
 	
-		endService.delete(id);
+		ResponseEntity<Object> response;
 		
-		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		Optional<Endereco> endereco = endService.find(id);
+		if (!endereco.isPresent()){
+			response = ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		}else {
+			endService.delete(id);
+			response = ResponseEntity.ok().body(null);
+		}
+		
+		return response; 
 	}
 	
 	@PatchMapping("/{id}")
@@ -89,12 +97,12 @@ public class EnderecoController {
 			 @RequestBody final EnderecoDTO enderecoDto){
 		
 		final ResponseEntity<Object> response;
-		final List<ErrorMessage> errorBody = endValidator.validatePatchEndereco(enderecoDto);
+		final List<ErrorMessage> errorBody = endValidator.validatePatchEndereco(id,enderecoDto);
 	
 		if(!errorBody.isEmpty()) {
             response = ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(errorBody);
 		}else {
-			Endereco endereco = endService.update(enderecoDto);
+			Endereco endereco = endService.update(id,enderecoDto);
 			response = ResponseEntity.status(HttpStatus.CREATED).body(endereco);
 		}
 		

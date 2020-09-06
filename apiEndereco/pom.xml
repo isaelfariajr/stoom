@@ -29,12 +29,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<exclusions>
+			<!-- <exclusions>
 				<exclusion>
 					<groupId>org.junit.vintage</groupId>
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
-			</exclusions>
+			</exclusions> -->
 		</dependency>
 		
 		<dependency>
@@ -51,20 +51,26 @@
 		<dependency>
 		    <groupId>org.projectlombok</groupId>
 		    <artifactId>lombok</artifactId>
-		    <version>1.18.2</version>
+		    <!-- <version>1.18.2</version> -->
 		    <scope>provided</scope>
 		</dependency>		
 		
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.13</version>
+			<!--<version>8.0.13</version>-->
 		</dependency>
 		
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>29.0-jre</version>
+			<!--  <version>29.0-jre</version>-->
+		</dependency>
+		
+		<dependency>
+    		<groupId>junit</groupId>
+    		<artifactId>junit</artifactId>    		
+    		<scope>test</scope>
 		</dependency>
 		
 	</dependencies>
@@ -77,7 +83,7 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

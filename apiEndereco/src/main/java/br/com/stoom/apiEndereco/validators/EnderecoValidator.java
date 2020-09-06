@@ -3,6 +3,7 @@ package br.com.stoom.apiEndereco.validators;
 import static br.com.stoom.apiEndereco.error.MessageCodes.REQUIRED_FIELD;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,7 +32,7 @@ public class EnderecoValidator {
 	            listErrors.add(dictionary.getMessage(REQUIRED_FIELD, "streetName"));
 	     }
 		 
-		 if(Strings.isNullOrEmpty(enderecoDto.getNumber().toString())) {
+		 if(Objects.isNull(enderecoDto.getNumber())) {
 	            listErrors.add(dictionary.getMessage(REQUIRED_FIELD, "number"));
 	     }
 		 
@@ -51,18 +52,18 @@ public class EnderecoValidator {
 	            listErrors.add(dictionary.getMessage(REQUIRED_FIELD, "country"));
 	     }
 		 
-		 if(Strings.isNullOrEmpty(enderecoDto.getZipcode().toString())) {
+		 if(Objects.isNull(enderecoDto.getZipcode())) {
 	            listErrors.add(dictionary.getMessage(REQUIRED_FIELD, "zipcode"));
 	     }
 		 
 		 return listErrors;
 	 }
 	 
-	 public List<ErrorMessage> validatePatchEndereco(final EnderecoDTO enderecoDto){
+	 public List<ErrorMessage> validatePatchEndereco(final Long id,final EnderecoDTO enderecoDto){
 		 
 		 final List<ErrorMessage> listErrors = Lists.newArrayList();
 		 
-		 if(Strings.isNullOrEmpty(enderecoDto.getId().toString())) {
+		 if(Strings.isNullOrEmpty(String.valueOf(new Long(id)))) {
 	            listErrors.add(dictionary.getMessage(REQUIRED_FIELD, "id"));
 	     }
 		 
@@ -70,7 +71,7 @@ public class EnderecoValidator {
 	            listErrors.add(dictionary.getMessage(REQUIRED_FIELD, "streetName"));
 	     }
 		 
-		 if(Strings.isNullOrEmpty(enderecoDto.getNumber().toString())) {
+		 if(Objects.isNull(enderecoDto.getNumber())) {
 	            listErrors.add(dictionary.getMessage(REQUIRED_FIELD, "number"));
 	     }
 		 
@@ -90,11 +91,10 @@ public class EnderecoValidator {
 	            listErrors.add(dictionary.getMessage(REQUIRED_FIELD, "country"));
 	     }
 		 
-		 if(Strings.isNullOrEmpty(enderecoDto.getZipcode().toString())) {
+		 if(Objects.isNull(enderecoDto.getZipcode())) {
 	            listErrors.add(dictionary.getMessage(REQUIRED_FIELD, "zipcode"));
 	     }
 		 
 		 return listErrors;
 	 }
-	 
 }

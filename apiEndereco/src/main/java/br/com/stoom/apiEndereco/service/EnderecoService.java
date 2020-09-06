@@ -40,7 +40,8 @@ public class EnderecoService {
 		return endereco.getId();
 	}
 	
-	public Endereco update(EnderecoDTO endereco) {
+	public Endereco update(Long id,EnderecoDTO endereco) {
+		endereco.setId(id);
 		return enderecoRepository.saveAndFlush(mapping(endereco));
 	}
 	
