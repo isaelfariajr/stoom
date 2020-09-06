@@ -1,0 +1,14 @@
+server:
+  port: 8081
+  
+spring:
+  application: 
+    name: 'apiEndereco'  
+  datasource:
+    password: 102030
+    username: root
+    url: jdbc:mysql://localhost:3306/andress?useTimezone=true&serverTimezone=America/Sao_Paulo
+  jpa:
+    hibernate:
+      ddl-auto: create      
+
