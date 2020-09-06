@@ -1,0 +1,352 @@
+{
+	"info": {
+		"_postman_id": "85f0497e-5800-411e-baba-97e255737249",
+		"name": "Stoom",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "apiEndereco - Post - Todos os Campos Informados",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"streetName\": \"Rua da Maria\",\r\n    \"number\": 123,\r\n    \"complement\": \"ND\",\r\n    \"neighbourhood\": \"Bairro Maria\",\r\n    \"city\": \"Campinas\",\r\n    \"state\": \"SP\",\r\n    \"country\": \"Brasil\",\r\n    \"zipcode\": \"13013000\",\r\n    \"latitude\": \"\",\r\n    \"longitude\": \"\"     \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/endereco",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"endereco"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiEndereco - Post - Com mais de uma campo não informado",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"streetName\": \"Rua da Maria\",\r\n    \"complement\": \"ND\",\r\n    \"neighbourhood\": \"Bairro Maria\",\r\n    \"city\": \"Campinas\",\r\n    \"country\": \"Brasil\",\r\n    \"latitude\": \"\",\r\n    \"longitude\": \"\"     \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/endereco",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"endereco"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiEndereco - Post - Sem zipcode",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"streetName\": \"Rua da Maria\",\r\n    \"number\": 123,\r\n    \"complement\": \"ND\",\r\n    \"neighbourhood\": \"Bairro Maria\",\r\n    \"city\": \"Campinas\",\r\n    \"state\": \"SP\",\r\n    \"country\": \"Brasil\",\r\n    \"latitude\": \"\",\r\n    \"longitude\": \"\"     \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/endereco",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"endereco"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiEndereco - Post - Sem country",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"streetName\": \"Rua da Maria\",\r\n    \"number\": 123,\r\n    \"complement\": \"ND\",\r\n    \"neighbourhood\": \"Bairro Maria\",\r\n    \"city\": \"Campinas\",\r\n    \"state\": \"SP\",\r\n    \"zipcode\": \"13013000\",\r\n    \"latitude\": \"\",\r\n    \"longitude\": \"\"     \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/endereco",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"endereco"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiEndereco - Post - Sem state",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"streetName\": \"Rua da Maria\",\r\n    \"number\": 123,\r\n    \"complement\": \"ND\",\r\n    \"neighbourhood\": \"Bairro Maria\",\r\n    \"city\": \"Campinas\",\r\n    \"country\": \"Brasil\",\r\n    \"zipcode\": \"13013000\",\r\n    \"latitude\": \"\",\r\n    \"longitude\": \"\"     \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/endereco",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"endereco"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiEndereco - Post - Sem city",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"streetName\": \"Rua da Maria\",\r\n    \"number\": 123,\r\n    \"complement\": \"ND\",\r\n    \"neighbourhood\": \"Bairro Maria\",\r\n    \"state\": \"SP\",\r\n    \"country\": \"Brasil\",\r\n    \"zipcode\": \"13013000\",\r\n    \"latitude\": \"\",\r\n    \"longitude\": \"\"     \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/endereco",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"endereco"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiEndereco - Post - Sem neighbourhood",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"streetName\": \"Rua da Maria\",\r\n    \"number\": 123,\r\n    \"complement\": \"ND\",\r\n    \"city\": \"Campinas\",\r\n    \"state\": \"SP\",\r\n    \"country\": \"Brasil\",\r\n    \"zipcode\": \"13013000\",\r\n    \"latitude\": \"\",\r\n    \"longitude\": \"\"     \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/endereco",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"endereco"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiEndereco - Post - Sem number",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"streetName\": \"Rua da Maria\",\r\n    \"complement\": \"ND\",\r\n    \"neighbourhood\": \"Bairro Maria\",\r\n    \"city\": \"Campinas\",\r\n    \"state\": \"SP\",\r\n    \"country\": \"Brasil\",\r\n    \"zipcode\": \"13013000\",\r\n    \"latitude\": \"\",\r\n    \"longitude\": \"\"     \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/endereco",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"endereco"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiEndereco - Post  -  Sem streetName",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"number\": 123,\r\n    \"complement\": \"ND\",\r\n    \"neighbourhood\": \"Bairro Maria\",\r\n    \"city\": \"Campinas\",\r\n    \"state\": \"SP\",\r\n    \"country\": \"Brasil\",\r\n    \"zipcode\": \"13013000\",\r\n    \"latitude\": \"\",\r\n    \"longitude\": \"\"     \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/endereco",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"endereco"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiEndereco - Find",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"streetName\": \"Rua da Maria\",\r\n    \"number\": 123,\r\n    \"complement\": \"ND\",\r\n    \"neighbourhood\": \"Bairro Maria\",\r\n    \"city\": \"Campinas\",\r\n    \"state\": \"SP\",\r\n    \"country\": \"Brasil\",\r\n    \"zipcode\": \"13013000\",\r\n    \"latitude\": \"\",\r\n    \"longitude\": \"\"     \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/endereco/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"endereco",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiEndereco - Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/endereco/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"endereco",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiEndereco - Patch",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/endereco/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"endereco",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
