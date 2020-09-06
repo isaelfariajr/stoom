@@ -2,6 +2,7 @@ package br.com.stoom.apiEndereco.service;
 
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doReturn;
 
 import java.util.Optional;
 
@@ -10,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -26,7 +26,7 @@ public class EnderecoServiceTests {
 	
 	private static final Long ID = 1L;
 	
-	@InjectMocks
+	@Mock
 	private EnderecoService endService;
 	
 	@Mock
@@ -114,7 +114,7 @@ public class EnderecoServiceTests {
 		EnderecoDTO dto = mappingDTO(endereco);
 		endereco.setStreetName("Rua da Maria e João");
 		
-		given(endService.update(anyLong(), dto)).willReturn(endereco);
+		doReturn(endereco).when(endService).update(ID, dto);
 		
 		Assert.assertNotNull(endereco.getStreetName());
 		Assert.assertEquals("Rua da Maria e João",endereco.getStreetName()); 

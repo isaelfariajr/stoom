@@ -1,16 +1,8 @@
 package br.com.stoom.apiEndereco.service;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Optional;
 
-import org.apache.tomcat.util.json.JSONParser;
-import org.apache.tomcat.util.json.ParseException;
-import org.json.JSONArray;
-import org.json.JSONObject;
 //import org.json.JSONArray;
 //import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import br.com.stoom.apiEndereco.data.model.Endereco;
 import br.com.stoom.apiEndereco.data.repository.EnderecoRepository;
@@ -56,7 +45,6 @@ public class EnderecoService {
 		
 		ResponseEntity<String> response = restTemplate.getForEntity(googleUrl, String.class);
 		ObjectMapper mapper = new ObjectMapper();
-		
 		JsonNode json = mapper.readTree(response.getBody());
 
 		/* Não foi possivel dar continuidade, pois não foi fornecido uma key valida */
